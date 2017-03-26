@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script>
+        function adjust_iframe_height() {
+            var actual_height = this.document.body.offsetHeight;
+            parent.postMessage(actual_height, "*");
+            //* allows this to post to any parent iframe regardless of domain
+        }
+    </script>
+</head>
+<body onresize="adjust_iframe_height()">
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
