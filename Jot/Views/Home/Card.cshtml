@@ -5,42 +5,51 @@
 @Styles.Render("~/Content/css")
 @model Jot.Models.CardPropertyModel
 
-<div class=" panel panel-info" style="margin:0">
-    <div class="panel-heading">Jot Thoughts</div>
-    <div class="panel-body" id="cardBody">
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="jottedThought" class="control-label col-sm-2">Jot Area</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="jottedThought" style="min-height:200px" maxlength=@Model.maxJotLength placeholder="Jot your thoughts here..."></textarea>
-                </div>
-            </div>
-            @if (Model.enableContactEmail > 0)
-            {
+@if (Model != null)
+{
+    <div class=" panel panel-info" style="margin:0">
+        <div class="panel-heading">Jot Thoughts</div>
+        <div class="panel-body" id="cardBody">
+            <form class="form-horizontal" method="post" role="form">
                 <div class="form-group">
-                    <label for="contactEmail" class="control-label col-sm-2">Email</label>
+                    <label for="jottedThought" class="control-label col-sm-2">Jot Area</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="contactEmail" placeholder="Email">
+                        <textarea class="form-control" id="jottedThought" name="jottedThought" style="min-height:200px" maxlength=@Model.maxJotLength placeholder="Jot your thoughts here..."></textarea>
                     </div>
                 </div>
-            }
-            @if (Model.enableContactConsent > 0)
-            {
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="contactConsent"> Contact me
-                            </label>
+                @if (Model.enableContactEmail > 0)
+                {
+                    <div class="form-group">
+                        <label for="contactEmail" class="control-label col-sm-2">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="contactEmail" name="contactEmail" placeholder="Email">
                         </div>
                     </div>
+                }
+                @if (Model.enableContactConsent > 0)
+                {
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" id="contactConsent" name="contactConsent"> Contact me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone" class="control-label col-sm-2">Phone</label>
+                        <div class="col-sm-10">
+                            <input type="tel" class="form-control" id="contactPhone" name="contactPhone" placeholder="Phone">
+                        </div>
+                    </div>
+                }
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-info" formaction="JotDown">Submit</button>
+                    </div>
                 </div>
-            }
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-info" formaction="~/Controllers/JotCard/Submit">Submit</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+}

@@ -9,6 +9,9 @@ namespace Jot.Models
 {
     public class CardPropertyModel
     {
+        [Key]
+        public int propID { get; set; }
+
         [DefaultValue(1)]
         public int enableContactEmail {get; set;}
 
