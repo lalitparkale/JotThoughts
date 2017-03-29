@@ -52,4 +52,27 @@
             </form>
         </div>
     </div>
+
+    {
+        int ret = 0;
+        if (null != ViewData["returnCode"])
+        { 
+            ret = (int)ViewData["returnCode"];
+        }
+
+        if (ret == 1)
+        {
+            <div class="alert alert-success alert-dismissable" style="position:absolute;top:15px;width:100%">
+                <span class="close" data-dismiss="alert" aria-label="close">x</span>
+                <strong>Well done!</strong> Thanks for sharing your thought.
+            </div>
+        }
+        else if (ret < 0)
+        {
+            <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                <strong>Oops!</strong> My bad. Please try once more.
+            </div>
+        }
+    }
 }
