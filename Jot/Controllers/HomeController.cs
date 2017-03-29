@@ -74,6 +74,7 @@ namespace Jot.Controllers
                 }
                 catch(Exception ex)
                 {
+                    Response.AppendToLog("JotDown() exception : " + ex.ToString());
                     Console.WriteLine("JotDown() exception : " + ex.ToString());
                 }
 
