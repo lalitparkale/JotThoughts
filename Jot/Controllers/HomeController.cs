@@ -40,6 +40,9 @@ namespace Jot.Controllers
         [HttpPost]
         public ActionResult JotDown(JotCardModel jcm)
         {
+            int returnCode = 0;
+            CardPropertyModel cp = new CardPropertyModel();
+
             if (ModelState.IsValid)
             {
                 //validate that jot info is not more that the specified ultimate length
@@ -51,7 +54,7 @@ namespace Jot.Controllers
                 if (null != Request.UrlReferrer)
                     jcm.ReferrerURL = Request.UrlReferrer.AbsoluteUri;
 
-                CardPropertyModel cp = TempData["CardAttributes"] as CardPropertyModel;
+                cp = TempData.Peek("CardAttributes") as CardPropertyModel;
 
                 try
                 {
@@ -71,17 +74,24 @@ namespace Jot.Controllers
                         db.JotCards.Add(jot);
                         db.SaveChanges();
                     }
+
+                    returnCode = 1;
                 }
                 catch(Exception ex)
                 {
                     Response.AppendToLog("JotDown() exception : " + ex.ToString());
                     Console.WriteLine("JotDown() exception : " + ex.ToString());
-                }
 
-                return View("Card");
+                    returnCode = -1;
+                }
+            }
+            else
+            {
+                returnCode = -2;
             }
 
-            return View("Card");
+            ViewData["returnCode"] = returnCode;
+            return View("Card", cp);
         }
     }
 }
