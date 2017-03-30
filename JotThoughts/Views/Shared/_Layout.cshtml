@@ -6,7 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="stylesheet" type="text/css" href="http://localhost:55650/content/jotcard.css">
 
 </head>
 <body>
@@ -34,26 +34,46 @@
         @RenderBody()
         <hr />
 
+        @*
+            <div style="border: none; overflow: hidden; position: fixed; bottom: 10px; right: 10px">
+                <a class="btn btn-lg" data-toggle="modal" data-target="#jotCardSpace" onclick="LoadJotCard();">
+                    <!-- <button onclick="document.getElementById('jotCardSpace').style.display = 'block';"> -->
+                    <img src="~/Content/cba-diamond.png" alt="Jot Thoughts" style="width: 50px; height: 50px; opacity: 0.7" />
+                </a>
+            </div>
+
+            <!-- Modal -->
+            <div id="jotCardSpace" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div id="jotCardSpaceContent" class="modal-content">
+                        <div class="modal-body" id="jotCardSpaceBody" style="padding:0;margin:0;">
+                            <!--<iframe id="jotCardFrame"
+                                    src="http://localhost:55650/home/card"
+                                    style="border: none;width:100%;"></iframe>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        *@
+
+        <!-- Trigger/Open The Modal -->
         <div style="border: none; overflow: hidden; position: fixed; bottom: 10px; right: 10px">
-            <a class="btn btn-lg" data-toggle="modal" data-target="#jotCardSpace" onclick="LoadJotCard();">
+            <a id="jotBtn">
                 <!-- <button onclick="document.getElementById('jotCardSpace').style.display = 'block';"> -->
                 <img src="~/Content/cba-diamond.png" alt="Jot Thoughts" style="width: 50px; height: 50px; opacity: 0.7" />
             </a>
         </div>
 
-        <!-- Modal -->
-        <div id="jotCardSpace" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div id="jotCardSpaceContent" class="modal-content">
-                    <div class="modal-body" id="jotCardSpaceBody" style="padding:0;margin:0;">
-                        <!--<iframe id="jotCardFrame"
-                                src="http://localhost:55650/home/card"
-                                style="border: none;width:100%;"></iframe>-->
-                    </div>
-                </div>
+        <!-- The Modal -->
+        <div id="jotModal" class="jot-modal">
+            <!-- Modal content -->
+            <div class="jot-modal-content">
+                <!--<span class="jot-close">&times;</span>-->
+                <div id="jotCardSpaceBody" style="padding:0;margin:0;"></div>
             </div>
         </div>
+        <script src="http://localhost:55650/scripts/jotcard.js"></script>
 
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
@@ -61,39 +81,44 @@
     </div>
 
     <script>
-        //CARD_HEIGHT -- Start
-        //below script is to ensure that iFrame pops up with proper height (of card height)
-        // Create IE + others compatible event handler
-        var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
-        var eventer = window[eventMethod];
-        var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+        /*
+                function jotLoad() {
+                    //CARD_HEIGHT -- Start
+                    //below script is to ensure that iFrame pops up with proper height (of card height)
+                    // Create IE + others compatible event handler
+                    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+                    var eventer = window[eventMethod];
+                    var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
 
-        // Listen to message from child window
-        eventer(messageEvent, function (e) {
-            console.log('parent received message!:  ', e.data);
-            document.getElementById('jotCardFrame').height = e.data + 'px';
-        }, false);
-        //CARD_HEIGHT -- End
+                    // Listen to message from child window
+                    eventer(messageEvent, function (e) {
+                        console.log('parent received message!:  ', e.data);
+                        document.getElementById('jotCardFrame').height = e.data + 'px';
+                    }, false);
+                    //CARD_HEIGHT -- End
+                }
 
-        //iFRAME_LOAD -- start
-        //script to create the iFrame so that it does not get loaded along with the modal DIV. esentially this is delayed loading
-        function LoadJotCard() {
-            var srcURL = "http://localhost:55650/home/card?enableContactConsent=1";
-            document.getElementById('jotCardSpaceBody').innerHTML = "<iframe id=\"jotCardFrame\" src=\"" + srcURL + "\" style=\"border: none;width:100%;\"></iframe>";
-        }
-        //iFRAME_LOAD -- end
+                //iFRAME_LOAD -- start
+                //script to create the iFrame so that it does not get loaded along with the modal DIV. esentially this is delayed loading
+                function LoadJotCard() {
+                    var srcURL = "http://localhost:55650/home/card?enableContactConsent=1";
+                    document.getElementById('jotCardSpaceBody').innerHTML = "<iframe id=\"jotCardFrame\" src=\"" + srcURL + "\" style=\"border: none;width:100%;\"></iframe>";
+                }
+                //iFRAME_LOAD -- end
 
-        //CARD_REFRESH -- Start
-        //below script is for refreshing iframe (within the modal) so that each click on the JotDot is fresh card
-        function modal_callback() {
-            alert('in callback');
-            this.removeData('bs.modal');
-        }
-        document.getElementById("jotCardSpace").addEventListener("hidden.bs.modal", modal_callback, false);
-        //CARD_REFRESH -- End
+                //CARD_REFRESH -- Start
+                //below script is for refreshing iframe (within the modal) so that each click on the JotDot is fresh card
+                function modal_callback() {
+                    alert('in callback');
+                    this.removeData('bs.modal');
+                }
+                document.getElementById("jotCardSpace").addEventListener("hidden.bs.modal", modal_callback, false);
+                //CARD_REFRESH -- End
+        */
+        //jotLoad();
+        jotURLParams = 'enableContactConsent=1&maxJotLength=3';
 
     </script>
-
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
