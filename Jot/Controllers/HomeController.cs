@@ -51,10 +51,10 @@ namespace Jot.Controllers
                     jcm.jottedThought = jcm.jottedThought.Remove(CardPropertyModel.ultimateJotLength);
                 }
 
-                if (null != Request.UrlReferrer)
-                    jcm.ReferrerURL = Request.UrlReferrer.AbsoluteUri;
-
                 cp = TempData.Peek("CardAttributes") as CardPropertyModel;
+
+                if (null != cp)
+                    jcm.ReferrerURL = cp.ReferrerURL;
 
                 try
                 {
