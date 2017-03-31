@@ -7,8 +7,14 @@ using Jot.Models;
 
 namespace Jot.Controllers
 {
+    public static class JotConstants
+    {
+        public static string textarea_allowed_chars { get; set; }
+    }
+
     public class HomeController : Controller
     {
+
         // GET: Home
         public ActionResult Index()
         {
@@ -51,6 +57,20 @@ namespace Jot.Controllers
                     jcm.jottedThought = jcm.jottedThought.Remove(CardPropertyModel.ultimateJotLength);
                 }
 
+                if (String.IsNullOrEmpty(JotConstants.textarea_allowed_chars))
+                {
+                    if (System.Web.Configuration.WebConfigurationManager.AppSettings.Count > 0)
+                    {
+                        JotConstants.textarea_allowed_chars = System.Web.Configuration.WebConfigurationManager.AppSettings["textarea_allowed_chars"];
+                        if (String.IsNullOrEmpty(JotConstants.textarea_allowed_chars))
+                        {
+                            JotConstants.textarea_allowed_chars = @"[^a-zA-Z0-9% ._]+\z";
+                        }
+                    }
+                }
+
+                jcm.jottedThought = System.Text.RegularExpressions.Regex.Replace(jcm.jottedThought, JotConstants.textarea_allowed_chars, string.Empty);
+
                 cp = TempData.Peek("CardAttributes") as CardPropertyModel;
 
                 if (null != cp)
@@ -77,7 +97,7 @@ namespace Jot.Controllers
 
                     returnCode = 1;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Response.AppendToLog("JotDown() exception : " + ex.ToString());
                     Console.WriteLine("JotDown() exception : " + ex.ToString());
