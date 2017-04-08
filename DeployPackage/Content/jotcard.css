@@ -1,4 +1,56 @@
-﻿/* The Modal (background) */
+﻿.jot-Icon-Area {
+  border: none; 
+  overflow: hidden; 
+  position: fixed; 
+  bottom: 10px; 
+  right: 10px
+}
+
+.jot-Image {
+  display: block;
+  width: 50px; 
+  height: 50px; 
+  opacity: 0.7;
+  border-radius: 5px;
+}
+.jot-Image:hover {
+    cursor: pointer;
+}
+
+.jot-Overlay {
+  position: absolute;
+  bottom: 0;
+  left: 100%;
+  right: 0;
+  background-color: #ffcc00; /*#008CBA;*/
+  overflow: hidden;
+  width: 0;
+  height: 100%;
+  transition: .5s ease;
+  border-radius: 5px;
+}
+.jot-Icon-Area:hover .jot-Overlay {
+  width: 100%;
+  left: 0;
+}
+
+.jot-Text {
+  white-space:normal; 
+  color: white;
+  font-size: 10px;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+.jot-Text:hover {
+    cursor: pointer;
+}
+
+/* The Modal (background) */
 .jot-modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
